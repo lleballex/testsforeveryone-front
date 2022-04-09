@@ -7,7 +7,7 @@
     </div>
     
     <div v-else class="tests">
-      <div v-for="test in tests" class="tests__card card">
+      <div v-for="test in tests" :key="test.id" class="tests__card card">
         <NuxtLink v-if="test.image" :to="url.replace('[id]', test.id)" class="tests__card-img">
           <img :src="test.image">
         </NuxtLink>

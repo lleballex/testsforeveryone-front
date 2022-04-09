@@ -7,9 +7,10 @@ export const useUser = defineStore('user', {
         image: '',
     }),
     actions: {
-        authenticate(username) {
+        authenticate({ username, image }) {
             this.isAuthed = true
             this.username = username
+            this.image = image
         }
     }
 })
