@@ -50,7 +50,7 @@
       ])
     } else {
       user.authenticate(username.value)
-      cookieStore.set('authToken', data.value)
+      useCookie('authToken').value = data.value
       query.to ? router.push(query.to) : router.push('/')
     }
   }

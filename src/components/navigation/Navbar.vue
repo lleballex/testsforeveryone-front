@@ -51,7 +51,7 @@
   const user = useUser()
   const logout = () => {
     user.$reset()
-    cookieStore.delete('authToken')
+    useCookie('authToken').value = ''
     location.reload()
   }
 
