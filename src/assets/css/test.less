@@ -1,0 +1,169 @@
+@import 'assets/css/config.less';
+
+.test__header {
+  display: flex;
+  justify-content: space-between;
+  padding-bottom: .test()[gap];
+  border-bottom: 1px solid #333;
+}
+
+.test__user {
+  display: flex;
+  align-items: center;
+  gap: 1em;
+  position: relative;
+
+  &:after {
+    content: '';
+    position: absolute;
+    top: -.3em;
+    left: -.3em;
+    bottom: -.3em;
+    right: -1em;
+    z-index: -1;
+    border-radius: 3em;
+    background: #222;
+    transform: scale(0);
+    transition: @transition;
+  }
+
+  &:hover:after {
+    transform: none;
+  }
+}
+
+.test__user-data {
+  display: flex;
+  flex-direction: column;
+  gap: .5em;
+}
+
+.test__user-username {
+  font-weight: 600;
+  font-size: 1em;
+}
+
+.test__user-date {
+  font-weight: 400;
+  font-size: .9em;
+}
+
+.test__user-image {
+  width: 3.4em;
+  border-radius: 50%;
+}
+
+.test__rating {
+  gap: 1em !important;
+  padding: 1em 1.5em;
+  background: @primary;
+  border-radius: 2em;
+  color: @onPrimary;
+  font-size: 1.1em;
+}
+
+.test {
+  display: flex;
+  flex-direction: column;
+  gap: 2.5em;
+  margin: 0 auto;
+  max-width: 45em;
+  font-size: 1rem;
+}
+
+.test__title {
+  font-size: 2.3em;
+}
+
+.test__tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: .7em;
+  margin-top: -.5em;
+}
+
+.test__tag {
+  padding: .5em .8em;
+  background: @secondary;
+  color: @onSecondary;
+  border-radius: 2em;
+  font-size: .9em;
+}
+
+.test__image {
+  width: 100%;
+  border-radius: @radius;
+}
+
+.test__description {
+  line-height: 1.5em;
+  font-size: 1.3em;
+  font-weight: 400;
+}
+
+.test__question {
+  display: flex;
+  flex-direction: column;
+  gap: 1em;
+  padding: 1.5em;
+}
+
+.test__question-condition {
+  font-size: 1.1em;
+}
+
+.test__question-radios {
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+  gap: 1em;
+}
+
+.test__question-radio {
+  display: flex;
+  align-items: center;
+  gap: 1em;
+}
+
+.test__question-input {
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.test__submit {
+  .field();
+  .button.primary();
+
+  align-self: flex-end;
+  padding: 1.2em;
+  width: 28em;
+  max-width: 100%;
+  font-size: 1.1em;
+}
+
+.test__submit-text {
+  display: inline-block;
+  margin-right: .5em;
+  transform: translateX(calc(1em / 2 + .5em / 2));
+  transition: @transition;
+
+  .test__submit:hover & {
+    transform: translateX(0);
+  }
+}
+
+.test__submit-loading {
+  margin-right: .5em;
+  font-size: .9em;
+}
+
+.test__submit-icon {
+  opacity: 0;
+  transform: translateY(100%);
+  transition: @transition;
+
+  .test__submit:hover & {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}

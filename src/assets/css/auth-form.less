@@ -1,0 +1,31 @@
+@import 'assets/css/config.less';
+
+.auth-form {
+  display: flex;
+  flex-direction: column;
+  gap: 1.8em;
+  margin: 7em auto;
+  padding: 3em;
+  width: 33em;
+  max-width: 100%;
+  box-sizing: border-box;
+  font-size: 1rem;
+}
+
+.auth-form__title {
+  font-size: 1.5em;
+}
+
+.auth-form__btns {
+  display: flex;
+  gap: 1em;
+}
+
+.auth-form__btn {
+  .field();
+  .button();
+
+  width: 100%;
+  box-sizing: border-box;
+  text-align: center;
+}

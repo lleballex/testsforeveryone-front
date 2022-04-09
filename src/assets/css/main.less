@@ -1,0 +1,53 @@
+@import (css) url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&display=swap');
+@import 'assets/css/config.less';
+
+html {
+  background: @background;
+  color: @onBackground;
+  font-family: 'Montserrat', sans-serif;
+  font-size: 16px;
+  font-weight: 500;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+}
+
+a {
+  text-decoration: none;
+  color: inherit;
+}
+
+button, input {
+  border: none;
+  background: none;
+  font-family: 'Montserrat', sans-serif;
+  font-size: 1em;
+  font-weight: 500;
+  color: @onBackground;
+}
+
+button {
+  cursor: pointer;
+}
+
+input {
+  .input();
+  
+  outline: none;
+}
+
+img {
+  display: block;
+}
+
+.title {
+  color: #fff;
+  font-weight: 700;
+}
+
+.card {
+  border-radius: 1rem;
+  box-shadow: 10px 10px 15px 0 #090909, -10px -10px 15px 0 #1c1c1c;
+}

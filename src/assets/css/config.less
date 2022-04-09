@@ -1,0 +1,61 @@
+@primary: linear-gradient(90deg, #7029c9, #d2089a, #f74d72, #fb8a61);
+@onPrimary: #fff;
+@secondary: #7029c9;
+@onSecondary: #fff;
+@background: #111;
+@onBackground: #aaa;
+
+@transition: .3s ease-in-out;
+@longTransition: .5s ease-in-out;
+
+@padding: 1em;
+@radius: 1em;
+
+.outlined(@color) {
+  box-shadow: 0 0 0 4px @color;
+}
+
+.field() {
+  padding: @padding;
+  border-radius: @radius;
+  transition: @transition;
+
+  &:focus {
+    .outlined(@secondary);
+  }
+}
+
+.button() {
+  &.primary {
+    background: @primary;
+    color: @onPrimary;
+  }
+
+  &.secondary {
+    border: 2px solid @onBackground;
+    box-shadow: none;
+
+    &:hover {
+      background: @onBackground;
+      color: @background;
+    }
+
+    &:focus {
+      .outlined(lighten(@onBackground, 20%));
+    }
+  }
+}
+
+.input() {
+  .field();
+
+  background: #222;
+  letter-spacing: 1px;
+}
+
+
+
+.outline {
+  box-shadow: 3px 3px 3px 3px red;
+  // box-shadow: 0 0 0 4px @secondary;
+}
