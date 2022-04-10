@@ -24,29 +24,14 @@
       />
     </div>
 
-    <div style="display: flex; justify-content: space-between;">
+    <div class="test__title-area">
       <div class="test__title title">{{ test.title }}</div>
-      <div class="test__options">
-        <icon
-          @click="isOptionsShowed = !isOptionsShowed"
-          class="test__options-icon"
-          icon="ellipsis-vertical"
-        />
-        <div @click="isOptionsShowed = false" v-show="isOptionsShowed" class="test__options-menu">
-          <div @click="shareTest" class="test__options-item">
-            Поделиться
-            <input ref="shareInput" :value="`http://codeem.ru/tests/${id}/`" hidden>
-          </div>
-          <div v-if="test.user.username == username">
-            <NuxtLink :to="`/tests/my/${id}/`" class="test__options-item">
-              Управление
-            </NuxtLink>
-            <button @click="deleteTest()" class="test__options-item">
-              Удалить
-            </button>
-          </div>
-        </div>
-      </div>
+      <TestsOptions
+        class="test__options"
+        :id="id"
+        :isOwner="test.user.username == username"
+        :afterRemoving="goHome"
+      />
     </div>
 
     <div v-if="test.tags.length" class="test__tags">
@@ -98,7 +83,7 @@
     middleware: ['authed']
   })
 
-  const { id } = useRoute().params
+  const id = Number(useRoute().params.id)
   const { data: test, error, pending } = await useLazyFetch(`tests/${id}/`, useApiArgs())
 
   const { username } = useUser()
@@ -134,33 +119,11 @@
       useApiError(error.value)
     } else {
       useSuccessMsg('Супер! Тест решен')
-      useRouter().push('/')
+      goHome()
     }
   }
 
-  const isOptionsShowed = ref(false)
-
-  const shareInput = ref()
-  const shareTest = () => {
-    shareInput.value.select()
-    document.execCommand('copy')
-    useSuccessMsg('Ссылка на тест скопирована')
-  }
-
-  const deleteTest = async () => {
-    if (confirm('Ты точно хочешь удалить этот тест?')) {
-      const { error } = await useFetch(`tests/own/${id}/`, {
-        method: 'DELETE',
-        ...useApiArgs()
-      })
-
-      if (error.value) {
-        useApiError(error.value)
-      } else {
-        useSuccessMsg('Тест удален')
-        useRouter().push('/')      }
-    }
-  }
+  const goHome = () => useRouter().push('/')
 </script>
 
 <style lang="less" scoped>
@@ -202,47 +165,5 @@
   input[type="checkbox"]:checked + .checkbox {
     border-width: .5em;
     cursor: pointer;
-  }
-
-
-  // test-menu
-
-  .test__options {
-    position: relative;
-  }
-
-  .test__options-icon {
-    margin-top: .4em;
-    font-size: 2em;
-    transition: @transition;
-
-    &:hover {
-      transform: scale(1.2);
-      cursor: pointer;
-    }
-  }
-
-  .test__options-menu {
-    margin-top: 1em;
-    padding: .5em 0;
-    position: absolute;
-    right: 0;
-    background: @background;
-    border-radius: @radius;
-    overflow: hidden;
-    box-shadow: 0 0 6px 1px #1a1a1a;
-  }
-
-  .test__options-item {
-    display: block;
-    padding: .7em 1.2em;
-    width: 100%;
-    text-align: left;
-    transition: @transition;
-
-    &:hover {
-      background: #0a0a0a;
-      cursor: pointer;
-    }
   }
 </style>
