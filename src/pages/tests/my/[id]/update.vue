@@ -35,7 +35,7 @@
       <icon icon="arrow-right" class="test__submit-icon" />
     </button>
 
-    <UiCropper ref="cropper" v-model="test.image" :aspectRatio="10/7" />
+    <UiCropper ref="cropper" v-model="test.image" :aspectRatio="4/3" />
   </div>
 </template>
 
@@ -97,7 +97,7 @@
     &:after {
       content: '';
       display: block;
-      padding-top: calc(7 / 10 * 100%);
+      padding-top: calc(3 / 4 * 100%);
     }
 
     > img {
