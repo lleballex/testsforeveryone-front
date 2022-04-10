@@ -76,6 +76,8 @@
     gap: 1.5em;
     padding: 1.5em;
     width: 35em;
+    max-height: 30em;
+    overflow: auto;
     background: #222;
     border-radius: @radius;
 

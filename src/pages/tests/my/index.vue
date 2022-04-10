@@ -16,6 +16,9 @@
           <NuxtLink :to="`/tests/my/${test.id}/update/`" class="test-options__menu-item">
             Редактировать
           </NuxtLink>
+          <button @click="deleteTest(test.id)" class="test-options__menu-item">
+            Удалить
+          </button>
         </div>
       </div>
       <div>{{ test.date_created }}</div>
@@ -38,11 +41,27 @@
     middleware: ['authed']
   })
 
-  const { data: tests } = useLazyFetch('tests/own/', useApiArgs())
+  const { data: tests, refresh } = useLazyFetch('tests/own/', useApiArgs())
 
   const showedMenuId = ref(0)
   const toggleMenu = id => {
     showedMenuId.value == id ? showedMenuId.value = 0 : showedMenuId.value = id
+  }
+
+  const deleteTest = async id => {
+    if (confirm('Ты точно хочешь удалить этот тест?')) {
+      const { error } = await useFetch(`tests/own/${id}/`, {
+        method: 'DELETE',
+        ...useApiArgs()
+      })
+
+      if (error.value) {
+        useApiError(error.value)
+      } else {
+        useSuccessMsg('Тест удален')
+        refresh()
+      }
+    }
   }
 </script>
 
@@ -80,7 +99,9 @@
   .test-options__menu-item {
     display: block;
     padding: .5em 1em;
+    width: 100%;
     background: @background;
+    text-align: left;
     transition: @transition;
 
     &:hover {

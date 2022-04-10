@@ -49,8 +49,8 @@
         {code: 400, detail: 'Username or password is invalid', message: 'Хм... У тебя где-то ошибка'}
       ])
     } else {
-      user.authenticate(username.value)
-      useCookie('authToken').value = data.value
+      user.authenticate(data.value.user)
+      useCookie('authToken').value = data.value.token
       query.to ? router.push(query.to) : router.push('/')
     }
   }
