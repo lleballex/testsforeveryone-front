@@ -50,7 +50,9 @@
       ])
     } else {
       user.authenticate(data.value.user)
-      useCookie('authToken').value = data.value.token
+      useCookie('authToken', {
+        maxAge: 60*60*24*7,
+      }).value = data.value.token
       query.to ? router.push(query.to) : router.push('/')
     }
   }
