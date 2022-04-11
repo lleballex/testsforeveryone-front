@@ -118,8 +118,7 @@
     if (error.value) {
       useApiError(error.value)
     } else {
-      useSuccessMsg('Супер! Тест решен')
-      goHome()
+      useRouter().push(`/tests/solved/${data.value}/`)
     }
   }
 

@@ -9,7 +9,7 @@
       :lineWrap="false"
     />
 
-    <TestsTagsForm v-model="tags" />
+    <TestsTagsForm v-model="tags" class="test__tags-form" />
 
     <div class="test__image">
       <img v-if="image" :src="image">
@@ -97,6 +97,10 @@
 <style lang="less" scoped>
   @import 'assets/css/config.less';
   @import 'assets/css/test.less';
+
+  .test__tags-form {
+    align-self: flex-start;
+  }
 
   .test__image {
     position: relative;

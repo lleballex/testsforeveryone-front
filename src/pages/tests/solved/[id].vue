@@ -15,7 +15,7 @@
           </div>
         </NuxtLink>
         <TestsRating
-          :id="Number(id)"
+          :id="Number(data.test.id)"
           :rating="data.test.rating"
           :isLiked="data.test.is_liked"
           :isDisliked="data.test.is_disliked"

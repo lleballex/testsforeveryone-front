@@ -23,7 +23,7 @@
         <span
           v-for="tag, index in tags"
           @click="addTag(index)"
-          v-show="tag.includes(tagQuery)"
+          v-show="tag.toLowerCase().includes(tagQuery.toLowerCase())"
           class="test__tag"
         >
           {{ tag }}
@@ -116,10 +116,13 @@
     padding: .6em;
     top: calc(100% + 1em);
     max-height: 0;
+    max-width: 200%;
+    width: max-content;
     opacity: 0;
     overflow: hidden;
     visibility: hidden;
     z-index: 1;
+    overflow: auto;
     background: #222;
     border-radius: @radius;
     transition: @transition;
