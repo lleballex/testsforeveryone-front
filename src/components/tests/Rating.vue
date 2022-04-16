@@ -94,4 +94,10 @@
       color: #A5F332;
     }
   }
+
+  // mismatches
+
+  .rating > span:nth-child(3) {
+    display: none;
+  }
 </style>

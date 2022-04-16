@@ -98,10 +98,6 @@
   @import 'assets/css/config.less';
   @import 'assets/css/test.less';
 
-  .test__tags-form {
-    align-self: flex-start;
-  }
-
   .test__image {
     position: relative;
     overflow: hidden;

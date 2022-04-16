@@ -35,10 +35,16 @@
   const hideMenu = () => isShowed.value = false
 
   const share = () => {
-    navigator.clipboard.writeText(`http://codeem.ru/tests/${id}/`).then(
-      success => useSuccessMsg('Ссылка на тест скопирована'),
-      err => useErrorMsg('Хм... Не получилось')
-    )
+    const textarea = document.createElement('textarea')
+    textarea.value = `http://codeem.ru/tests/${id}/`
+    textarea.style.top = '-100em'
+    textarea.style.position = 'absolute'
+    document.body.appendChild(textarea)
+    textarea.focus()
+    textarea.select()
+    document.execCommand('copy')
+    document.body.removeChild(textarea)
+    useSuccessMsg('Ссылка на тест скопирована')
   }
 
   const remove = async () => {

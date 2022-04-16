@@ -41,7 +41,8 @@ export default defineNuxtConfig({
             {property: 'og:title', content: 'Tests for everyone'},
             {property: 'og:type', content: 'website'},
             {property: 'og:image', content: 'http://codeem.ru/favicon.svg'},
-            {property: 'og:description', content: description}
+            {property: 'og:description', content: description},
+            {property: 'og:site_name', content: 'Сайт с самыми удивительными тестами (можно делать свои)'}
         ],
         link: [
             {rel: 'icon', type: 'image/svg+xml', href: '/favicon.svg' },  

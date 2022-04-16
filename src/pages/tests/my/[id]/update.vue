@@ -11,7 +11,7 @@
       :lineWrap="false"
     />
 
-    <TestsTagsForm v-model="test.tags" />
+    <TestsTagsForm v-model="test.tags" class="test__tags-form" />
 
     <div class="test__image">
       <img v-if="test.image" :src="test.image">

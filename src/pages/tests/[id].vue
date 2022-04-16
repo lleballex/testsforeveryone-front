@@ -5,6 +5,8 @@
 
   <div v-else class="test">
     <Title>{{ test.title }} | Tests for everyone</Title>
+    <Meta property="og:title" :content="`${test.title} | Tests for everyone`"></Meta>
+    <Meta v-if="test.description" property="og:description" :content="test.description"></Meta>
 
     <div class="test__header">
       <NuxtLink :to="`/users/${test.user.username}/`" class="test__user">
