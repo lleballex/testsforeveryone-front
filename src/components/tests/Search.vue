@@ -120,4 +120,10 @@
     width: 100%;
     box-sizing: border-box;
   }
+
+  @media (max-width: 460px) {
+    .search__tags :deep(.tags-form__available-tags) {
+      max-width: 150%;
+    }
+  }
 </style>

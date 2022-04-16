@@ -1,7 +1,7 @@
 <template>
   <UiLoading v-if="pending" />
 
-  <UiError v-else-if="error" message="Ой-ой... Что-то пошло не так. Воможно, ты уже решал этот тест" />
+  <UiError v-else-if="!test" />
 
   <div v-else class="test">
     <Title>{{ test.title }} | Tests for everyone</Title>
@@ -29,7 +29,7 @@
       <TestsOptions
         class="test__options"
         :id="id"
-        :isOwner="test.user.username == username"
+        :isOwner="test.user.username == user.username"
         :afterRemoving="goHome"
       />
     </div>
@@ -42,7 +42,7 @@
 
     <div v-if="test.description" class="test__description">{{ test.description }}</div>
 
-    <div v-for="question, index in test.questions" class="test__question card">
+    <div v-if="user.isAuthed" v-for="question, index in test.questions" class="test__question card">
       <div class="test__question-condition">{{ index + 1}}. {{ question.condition }}</div>
       <div v-if="question.kind == 'RADIO'" class="test__question-radios">
         <label v-for="option in question.options" class="test__question-radio">
@@ -66,27 +66,40 @@
       </div>
     </div>
 
-    <button @click="solve" class="test__submit">
+    <button v-if="user.isAuthed" @click="solve" class="test__submit">
       <span class="test__submit-text">
         <icon v-if="loading" icon="bug" spin class="test__submit-loading" />
         <span>Проверить</span>
       </span>
       <icon icon="arrow-right" class="test__submit-icon" />
     </button>
+
+    <div v-else class="test__auth-message">
+      Чтобы решить тест, нужно
+      <NuxtLink class="test__auth-message-link" :to="`/signin/?to=/tests/${id}/`">
+        авторизоваться
+      </NuxtLink>
+    </div>
   </div>
 </template>
 
 <script setup>
   import { useUser } from 'stores'
 
-  definePageMeta({
-    middleware: ['authed']
-  })
+  const user = useUser()
+  const router = useRouter()
 
   const id = Number(useRoute().params.id)
-  const { data: test, error, pending } = await useLazyFetch(`tests/${id}/`, useApiArgs())
+  const { data, pending } = await useLazyFetch(`tests/${id}/`, useApiArgs())
+  const test = ref(data.value?.test)
 
-  const { username } = useUser()
+  watch(data, d => {
+    if (d.status == 200) {
+      test.value = d.test
+    } else if (d.status == 403 && d.detail == 'You have already solved this test') {
+      router.push(`/tests/solved/${d.solved_id}/`)
+    }
+  })
 
   const answers = ref([])
   const startDate = new Date().getTime()
@@ -118,11 +131,11 @@
     if (error.value) {
       useApiError(error.value)
     } else {
-      useRouter().push(`/tests/solved/${data.value}/`)
+      router.push(`/tests/solved/${data.value}/`)
     }
   }
 
-  const goHome = () => useRouter().push('/')
+  const goHome = () => router.push('/')
 </script>
 
 <style lang="less" scoped>
@@ -164,5 +177,34 @@
   input[type="checkbox"]:checked + .checkbox {
     border-width: .5em;
     cursor: pointer;
+  }
+
+  .test__auth-message {
+    padding: 3em;
+    border-radius: @radius;
+    background: #3a3a3a;
+    font-size: 1.3em;
+    font-weight: 400;
+    text-align: center;
+  }
+
+  .test__auth-message-link {
+    position: relative;
+    color: #007f7f;
+
+    &:after {
+      content: '';
+      position: absolute;
+      bottom: -.3em;
+      left: 0;
+      right: 100%;
+      height: 2px;
+      background: #007f7f;
+      transition: @transition;
+    }
+
+    &:hover:after {
+      right: 0;
+    }
   }
 </style>

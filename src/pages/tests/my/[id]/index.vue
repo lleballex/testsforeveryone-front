@@ -61,7 +61,7 @@
       </div>
       <UiModal ref="modal">
         <template #title>
-          Title
+          {{ solution.user.username }}
         </template>
         <template #main>
           <div class="my-test__modal-questions">
